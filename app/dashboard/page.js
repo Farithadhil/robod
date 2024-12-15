@@ -1,9 +1,12 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   if (status === "loading") {
     return (
@@ -31,6 +34,7 @@ export default function Dashboard() {
       <h1 className="text-3xl font-bold mb-4">
         Welcome, {session.user?.name || session.user?.email}!
       </h1>
+      <button onClick={() => router.push('/projects/')}>Create Project</button>
       <p className="text-gray-600 mb-6">You are successfully logged in.</p>
 
       {/* Sign-out button */}
@@ -43,3 +47,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
